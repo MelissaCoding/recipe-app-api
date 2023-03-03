@@ -1,5 +1,5 @@
 """
-Test for django admin modifications.
+Testd for the Django admin modifications.
 """
 from django.test import TestCase
 from django.contrib.auth import get_user_model
@@ -8,11 +8,11 @@ from django.test import Client
 
 
 class AdminSiteTests(TestCase):
-    """Tests for django admin."""
+    """Tests for Django admin."""
 
     def setUp(self):
         """Create user and client."""
-        self.client - Client()
+        self.client = Client()
         self.admin_user = get_user_model().objects.create_superuser(
             email='admin@example.com',
             password='testpass123',
@@ -21,13 +21,13 @@ class AdminSiteTests(TestCase):
         self.user = get_user_model().objects.create_user(
             email='user@example.com',
             password='testpass123',
-            name='Test User',
+            name='Test User'
         )
 
-    def test_user_list(self):
+    def test_users_lists(self):
         """Test that users are listed on page."""
         url = reverse('admin:core_user_changelist')
         res = self.client.get(url)
 
-        self.assertConatins(res, self.user.name)
-        self.assertConatins(res, self.user.email)
+        self.assertContains(res, self.user.name)
+        self.assertContains(res, self.user.email)
